@@ -1,0 +1,104 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div>
+        <form method="POST" action="" enccompareStock="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <fieldset>
+                <legend class="border-bottom mb-4">New Equity Research</legend>
+                <div>
+                    {{ form.symbol.label(class="form-control-label") }}
+
+                    {% if form.symbol.errors %}
+                        {{ form.symbol(class="form-control form-control-lg is-invalid") }}
+                        {% for error in form.symbol.errors %}
+                            <div class="invalid-feedback">
+                                <span>{{ error }}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.symbol(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div>
+                    {{ form.singleSearchQtr.label(class="form-control-label") }}
+
+                    {% if form.singleSearchQtr.errors %}
+                        {{ form.singleSearchQtr(class="form-control form-control-lg is-invalid") }}
+                        {% for error in form.singleSearchQtr.errors %}
+                            <div class="invalid-feedback">
+                                <span>{{ error }}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.singleSearchQtr(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div>
+                    {{ form.metric.label(class="form-control-label") }}
+
+                    {% if form.metric.errors %}
+                        {{ form.metric(class="form-control form-control-lg is-invalid") }}
+                        {% for error in form.metric.errors %}
+                            <div class="invalid-feedback">
+                                <span>{{ error }}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.metric(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                </br>
+                <div class="form-check form-switch">
+                    {{ form.compare(class="form-check-input") }}
+                    {{ form.compare.label(class="form-check-label") }}
+                </div>
+                </br>
+                <div>
+                    {{ form.compareStock.label(class="form-control-label") }}
+
+                    {% if form.compareStock.errors %}
+                        {{ form.compareStock(class="form-control form-control-lg is-invalid") }}
+                        {% for error in form.compareStock.errors %}
+                            <div class="invalid-feedback">
+                                <span>{{ error }}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.compareStock(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div>
+                    {{ form.compareMetric.label(class="form-control-label") }}
+
+                    {% if form.compareMetric.errors %}
+                        {{ form.compareMetric(class="form-control form-control-lg is-invalid") }}
+                        {% for error in form.compareMetric.errors %}
+                            <div class="invalid-feedback">
+                                <span>{{ error }}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.compareMetric(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div>
+                    {{ form.compareSearchQtr.label(class="form-control-label") }}
+
+                    {% if form.compareSearchQtr.errors %}
+                        {{ form.compareSearchQtr(class="form-control form-control-lg is-invalid") }}
+                        {% for error in form.compareSearchQtr.errors %}
+                            <div class="invalid-feedback">
+                                <span>{{ error }}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.compareSearchQtr(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="mt-3">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+{% endblock %}

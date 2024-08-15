@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <style>
+        .container {
+            display: flex;
+            padding-top: 60px;
+            justify-content: center;
+            align-items: center;
+        }
+        .message-card {
+            width: 100%;
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        }
+        .message-card h1 {
+            color: #333;
+            font-weight: bold;
+        }
+        a {
+            color: #696969;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #5700e4;
+        }
+    </style>
+    <div class="container">
+        <div class="message-card">
+            <h1>Send us a message! </h1> </br>
+            <h5><a href="mailto: mzeelovegeneral@gmail.com">mzeelovegeneral@gmail.com</a></h5>
+            <h5><a href="mailto: ptobechi@outlook.com">ptobechi@outlook.com</a></h5>
+        </br>
+        </div>
+    </div>
+{% endblock %}

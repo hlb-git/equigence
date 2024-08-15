@@ -1,0 +1,175 @@
+header {
+    height: 50px;
+    top: 0;
+    width: 100%;
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #fff;
+    background-color: #2f7265;
+}
+
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('SanFranciscoFont/SanFranciscoDisplay-Medium.otf') format('opentype');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('SanFranciscoFont/SanFranciscoDisplay-Regular.otf') format('opentype');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('SanFranciscoFont/SanFranciscoDisplay-Bold.otf') format('opentype');
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('SanFranciscoFont/SanFranciscoDisplay-Semibold.otf') format('opentype');
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('SanFranciscoFont/SanFranciscoDisplay-Heavy.otf') format('opentype');
+    font-weight: 800;
+}
+
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('SanFranciscoFont/SanFranciscoDisplay-Black.otf') format('opentype');
+    font-weight: 900;
+}
+
+body {
+    font-family: 'SF Pro Display';
+    margin: 0;
+    padding: 0;
+    background-color: aliceblue;
+    color: #333;
+}
+
+main {
+    display: flex;
+    font-family: 'SF Pro Display';
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    color: #333;
+    padding: 0;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.alert {
+    justify-content: center;
+}
+
+
+footer {
+    background-color: #2f7265;
+    height: 40px;
+    padding-top: 8px;
+    text-align: center;
+    bottom: 0;
+    width: 100%;
+    position: fixed;
+    color: #74c343;
+    font-weight: 700;
+}
+
+
+.jj2block {
+    min-height: 100%;
+}
+
+.logo {
+    padding-left: 6%;
+}
+
+.logotext {
+    color: #74c343;
+    font-weight: 800;
+    text-decoration: none;
+    font-size: 25px;
+}
+.logo:hover {
+    padding-left: 6%;
+    color: #fff;
+}
+
+#navbarNav {
+    margin-left: 50%;
+}
+
+#logout {
+    border-radius: 5px;
+    color: #003049;
+    padding-top: 2px;
+    padding-bottom: 2px ;
+    background-color: #F77F00;
+    margin-top: 5px;
+}
+#logout:hover {
+    border-radius: 5px;
+    color: #003049;
+    padding-top: 2px;
+    padding-bottom: 2px ;
+    background-color: #fff;
+    margin-top: 5px;
+}
+#login {
+    border-radius: 5px;
+    color: #fff;
+    padding-top: 2px;
+    padding-bottom: 2px ;
+    background-color: #FD6C63;
+    margin-top: 5px;
+}
+#login:hover {
+    border-radius: 5px;
+    color: #fff;
+    padding-top: 2px;
+    padding-bottom: 2px ;
+    background-color: #FF857E;
+    margin-top: 5px;
+}
+
+.title-link {
+    color: #6600da;
+    font-size: 1.5em;
+    text-decoration: none;
+}
+
+h1 {
+    font-size: bold;
+}
+
+.nav-link:hover {
+    color: #fff;
+}
+
+.nav-link, .navbar-brand {
+    color: #9AD569;
+}
+
+.navbar-light .navbar-toggler-icon {
+    filter: invert(1);
+}
+
+@media (max-width: 992px) {
+    .navbar-collapse {
+        background-color: #f1f1f1; /* Change this to your preferred color */
+        padding-left: 10px;
+    }
+}
+@media (max-width: 992px) {
+    .navbar-light .navbar-nav .nav-link {
+        color: #003049;
+        font-family: 'SF Pro Display';
+    }
+}

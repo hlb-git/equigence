@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+{% block content %}
+    <style>
+        h2 {
+            color: #306e60;
+            font-weight: 800;
+
+        }
+        h5 {
+            color: #306e60;
+            font-weight: 800;
+        }
+        .card {
+            margin-top: 1em;
+            transition: 0.3s;
+            border-radius: 10px;
+            font-size: 15px;
+        }
+        .card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: 15px;
+            border-radius: 15px;
+        }
+    </style>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-lg">
+                    <div class="card-body">
+                        <div class="title">
+                            <div class="border-bottom mb-4">
+                                <h2 class="font-weight-bold text-uppercase">{{ rent.house_type }} in {{ rent.city }}</h2>
+                            </div>
+                            <p class="text-muted"> <b>State:</b> {{rent.state}}</p>
+                            <p class="text-muted"> <b>LGA:</b> {{rent.LGA}}</p>
+                            <p class="text-muted"> <b>City:</b> {{rent.city}}</p>
+                            <p class="text-muted"> <b>Address:</b> {{rent.address}}</p>
+                            <hr>
+                            <h5 class="font-weight-bold">Facility Details</h5>
+                        </div>
+                        <div class="row mt-3 mb-3">
+                            <p class="card-text mt-3">{{ rent.details }}</p>
+                        </div>
+                        <hr>
+                        <div class="row mt-3 mb-5">
+                            <h5 class="font-weight-bold">Pictures</h5>
+                        </div>
+                        <div >
+                            {% for image in pictures %}
+                                <img src="{{ url_for('serve_image', image_id=image.id) }}" alt="Accommodation Image">
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='landing.css')}}">
+    <title>Home</title>
+</head>
+<body>
+    <header class="header-section">
+        <div class="header-container">
+            <div>
+                <a class="logo" href="{{url_for('home')}}">WeeRent</h1>
+            </div>
+            <div>
+                <button class="menu-toggle">&#9776;</button>
+                <nav class="nav-links">
+                    <ul>
+                        <li><a class="links" href="{{url_for('home')}}">Home</a></li>
+                        <li><a class="links" href="{{url_for('contact')}}">Contact</a></li>
+                        <li><a class="links" href="{{url_for('register')}}">Sign Up</a></li>
+                        <li><a class="links" href="{{url_for('new')}}">Add Rent</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="hero-section">
+        <div class="hero-content">
+            <div class="hero-texts">
+                <h1 class="header">Find Your Ideal Home Away from Home</h1>
+                <h2 class="sub-header">Your Premier Rental Directory for NYSC Members</h2>
+                <p class="hero-description">
+                    Experience Hassle-Free Accommodation Searches Throughout
+                    Your Service Year. Find Your Perfect Rental with WeeRent Today!
+                </p>
+            </br>
+                <a href="{{url_for('listings')}}" class="head-btn">Browse Listings</a>
+            </div>
+        </div>
+        <div class="illustration">
+            <img src="{{url_for('static', filename='image/hero.jpg')}}" alt="Illustration">
+
+        </div>
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path fill="#f1f1f1" fill-opacity="1" d="M0,64L48,80C96,96,192,128,288,144C384,160,480,160,576,138.7C672,117,768,75,864,80C960,85,1056,139,1152,154.7C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+    </svg>
+    <section id="why-choose">
+        <div class="container">
+            <h2>Why Choose WeeRent?</h2>
+            <div class="grid">
+                <div class="feature">
+                    <h3>Tailored Listings</h3>
+                    <p>Browse through a curated selection of accommodation options specifically chosen to meet the needs of corps members.</p>
+                </div>
+                <div class="feature">
+                    <h3>Verified Properties</h3>
+                    <p>Rest assured knowing that all listings are thoroughly vetted for safety, comfort, and affordability.</p>
+                </div>
+                <div class="feature">
+                    <h3>Easy Search</h3>
+                    <p>Find your ideal accommodation quickly with our intuitive search filters,
+                        including State, City, and House type.</p>
+                </div>
+                <div class="feature">
+                    <h3>Community Reviews</h3>
+                    <p>Hear from fellow corps members about their experiences with different properties through authentic reviews and ratings.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer-section">
+        <div class="footer-container">
+            <p>&copy; 2024 Rent Directory. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+        });
+    </script>
+</body>
+</html>

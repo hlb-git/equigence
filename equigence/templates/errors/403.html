@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='errors.css') }}">
+    <title>403 - Page Forbidden</title>
+</head>
+<body>
+    <div class="container">
+        <h1>You do not have permission to do that! (403)</h1>
+        <p>Please check Your Account and try again.</p>
+        <a href="{{ url_for('home') }}">Go back <strong>Home</strong></a>
+    </div>
+</body>
+</html>

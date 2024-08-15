@@ -1,0 +1,21 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    text-align: center;
+}
+h1 {
+    font-size: 3em;
+}
+a {
+    color: #333;
+    text-decoration: none;
+}
