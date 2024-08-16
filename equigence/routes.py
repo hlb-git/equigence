@@ -4,9 +4,8 @@ from equigence.forms import Register, Login, New, Filter
 from equigence.models import User, Equity, Image
 from flask_login import login_user, logout_user, current_user, login_required
 from flask import send_file
-from io import BytesIO
-import pandas as pd
-import matplotlib.pyplot as plt
+from equigence.plotting import plotchart
+import requests
 
 
 @app.route('/')
@@ -71,7 +70,7 @@ def login():
                         password=existing_user['password'],
                         id=existing_user['id'],)
             login_user(user, form.remember.data)
-            print(current_user.__dict__)
+            # print(current_user.__dict__) # This is to check the current user object
             next_page = request.args.get('next')
             flash(f"Log in successful!", 'success')
             return redirect(next_page) if next_page else redirect(url_for('dashboard'))
@@ -83,12 +82,45 @@ def login():
 @app.route('/new', methods=['GET', 'POST'])
 @login_required
 def new():
-    """About page route."""
+    """new search route"""
     form = New()
     if current_user.is_authenticated:
         if form.validate_on_submit():
             symbol = form.symbol.data
-            singleSearchQtr = form.singleSearchQtr.data
+            formMetric = form.metric.data
+            apiFunction = None
+            # urlSharePrice = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=ohi&apikey=WOHIPQEJ4Z6LPM6F'
+            # share = list(requests.get(urlSharePrice).json().get('Time Series (Daily)').values)[0]
+            match formMetric:
+                case 'N/M':
+                    apiFunction = 'INCOME_STATEMENT'
+                    url = f'https://www.alphavantage.co/query?function={apiFunction}&symbol={symbol}&apikey=WOHIPQEJ4Z6LPM6F'
+                    data = requests.get(url).json().get('quarterlyReports')
+                    netincomeList = []
+                    revenue = []
+                    netProfitMargin = []
+                    quartersList = [f'Q{i+1}' for i in range(0, int(form.singleSearchQtr.data))]
+                    for i in range(0, int(form.singleSearchQtr.data)):
+                        netincomeList.append(data[i].get('netIncome'))
+                        revenue.append(data[i].get('totalRevenue'))
+                    for i in range(0, int(form.singleSearchQtr.data)):
+                        netProfitMargin.append(int(netincomeList[i]) / int(revenue[i]))
+                    plotedImage = plotchart(netProfitMargin, quartersList, 'bar',
+                               'Net Profit Margin', 
+                               'Quarters', 
+                               'Profit Margin Analysis')
+                    activeUser = db.db.Users.find_one({'id': current_user.id})
+                    activeUser['equities'][symbol] = {'ProfitMarginPlot': plotedImage}
+                    
+                        
+                case 'P/E':
+                    api
+            
+            url = f'https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol={symbol}&apikey=WOHIPQEJ4Z6LPM6F'
+            r = requests.get(url)
+            data = r.json().get('quarterlyReports')
+            
+
             try:
                 for image in form.image.data:
                     img = Image(data=image.read(), accomodation_id=accomodation.id)

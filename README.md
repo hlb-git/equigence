@@ -6,8 +6,7 @@ Portfolio Project That Aims to Solve and Automate the Fundamental Data Analyses 
 
 ### Getting Started
 run ``` ./dependencies.sh ``` // for linux users
-
-run ```./mac_dep.sh``` // for mac users
+    
 
 
 In addition to the above dependencies script, please run the commands below in your
