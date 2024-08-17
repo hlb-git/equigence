@@ -29,7 +29,10 @@ class Login(FlaskForm):
 
 class New(FlaskForm):
     symbol = StringField('Symbol')
-    singleSearchQtr = SelectField('Number of Quarters (Max 5)', choices=[(1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5')],
+    singleSearchQtr = SelectField('Number of Quarters (Max 8)', choices=[(1, '1'), (2, '2'), 
+                                                                         (3, '3'), (4, '4'), 
+                                                                         (5, '5'), (6, '6'),
+                                                                         (7, '7'), (8, '8')],
                                     validators=[DataRequired()])
     metric = SelectField('Analysis Metric', choices=[('N/M', 'Net Profit Margin (N/M)'),
                                                        ('P/E', 'Price to Earnings (P/E)'),

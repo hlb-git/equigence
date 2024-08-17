@@ -1,7 +1,11 @@
+import matplotlib
+matplotlib.use('Agg')  # Set matplotlib to use a non-GUI backend
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 from io import BytesIO
+
 
 def plotchart(y_axis, x_axis, plot_type, y_label, x_label, title):
     plt.figure()
@@ -18,6 +22,6 @@ def plotchart(y_axis, x_axis, plot_type, y_label, x_label, title):
     plt.title(title)
     plotImage = BytesIO()
     plt.savefig(plotImage, format='png')
+    plotImage.seek(0)
     plt.close()
-
     return plotImage.getvalue()

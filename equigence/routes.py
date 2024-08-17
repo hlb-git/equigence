@@ -6,6 +6,8 @@ from flask_login import login_user, logout_user, current_user, login_required
 from flask import send_file
 from equigence.plotting import plotchart
 import requests
+from io import BytesIO
+
 
 
 @app.route('/')
@@ -86,7 +88,8 @@ def new():
     form = New()
     if current_user.is_authenticated:
         if form.validate_on_submit():
-            symbol = form.symbol.data
+            imageData = []
+            symbol = form.symbol.data.upper()
             formMetric = form.metric.data
             apiFunction = None
             # urlSharePrice = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=ohi&apikey=WOHIPQEJ4Z6LPM6F'
@@ -96,41 +99,33 @@ def new():
                     apiFunction = 'INCOME_STATEMENT'
                     url = f'https://www.alphavantage.co/query?function={apiFunction}&symbol={symbol}&apikey=WOHIPQEJ4Z6LPM6F'
                     data = requests.get(url).json().get('quarterlyReports')
-                    netincomeList = []
-                    revenue = []
-                    netProfitMargin = []
-                    quartersList = [f'Q{i+1}' for i in range(0, int(form.singleSearchQtr.data))]
-                    for i in range(0, int(form.singleSearchQtr.data)):
-                        netincomeList.append(data[i].get('netIncome'))
-                        revenue.append(data[i].get('totalRevenue'))
-                    for i in range(0, int(form.singleSearchQtr.data)):
-                        netProfitMargin.append(int(netincomeList[i]) / int(revenue[i]))
-                    plotedImage = plotchart(netProfitMargin, quartersList, 'bar',
-                               'Net Profit Margin', 
-                               'Quarters', 
-                               'Profit Margin Analysis')
-                    activeUser = db.db.Users.find_one({'id': current_user.id})
-                    activeUser['equities'][symbol] = {'ProfitMarginPlot': plotedImage}
-                    
-                        
+                    if data:
+                        netincomeList = []
+                        revenue = []
+                        netProfitMargin = []
+                        quartersList = [f'Q{i+1}' for i in range(0, int(form.singleSearchQtr.data))]
+                        for i in range(0, int(form.singleSearchQtr.data)):
+                            netincomeList.append(data[i].get('netIncome'))
+                            revenue.append(data[i].get('totalRevenue'))
+                        for i in range(0, int(form.singleSearchQtr.data)):
+                            netProfitMargin.append(int(netincomeList[i]) / int(revenue[i]))
+                        plotedImage = plotchart(netProfitMargin, quartersList, 'bar',
+                                'Net Profit Margin', 
+                                'Quarters', 
+                                'Profit Margin Analysis')
+                        imageData += [symbol, current_user.id, netProfitMargin]
+                        activeUser = db.db.Users.find_one({'id': current_user.id})
+                        activeUser['equities'][symbol]['ProfitMarginPlot'] =  plotedImage
+                        activeUser['equities'][symbol]['Image_ID'] =  symbol + current_user.id
+                        activeUser['equities'][symbol]['ProfitMarginList'] = netProfitMargin
+                        db.db.Users.update_one({'id': current_user.id}, {'$set': {'equities': activeUser['equities']}})
+                        return render_template('displayplot.html', title='Analysis Plot', data=imageData)
+                    else:
+                        flash(f"Data not found for {symbol}", 'danger')
+                        return redirect(url_for('new'))
                 case 'P/E':
                     api
             
-            url = f'https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol={symbol}&apikey=WOHIPQEJ4Z6LPM6F'
-            r = requests.get(url)
-            data = r.json().get('quarterlyReports')
-            
-
-            try:
-                for image in form.image.data:
-                    img = Image(data=image.read(), accomodation_id=accomodation.id)
-                    db.session.add(img)
-                    db.session.commit()
-                flash(f"Rent added successfully!", 'success')
-                return redirect(url_for('listings'))
-            except Exception:
-                flash(f"Rent added successfully!", 'success')
-                return redirect(url_for('listings'))
     else:
         flash(f"Please log in to add a new rent.", 'danger')
         return redirect(url_for('login'))
@@ -153,6 +148,13 @@ def dashboard():
     """dashboard page route."""
     return render_template('dashboard.html', title='Dashboard')
 
+@app.route('/show/<plot>')
+def display(plot):
+    """accomodation page route."""
+    
+    pictures = Image.query.filter_by(accomodation_id=accomodation_id).all()
+    return render_template('accomodation.html', title='Accomodation', rent=rent, pictures=pictures)
+
 @app.route('/accomodation/<accomodation_id>')
 def accomodation(accomodation_id):
     """accomodation page route."""
@@ -160,7 +162,17 @@ def accomodation(accomodation_id):
     pictures = Image.query.filter_by(accomodation_id=accomodation_id).all()
     return render_template('accomodation.html', title='Accomodation', rent=rent, pictures=pictures)
 
-@app.route('/image/<image_id>')
-def serve_image(image_id):
-    image = Image.query.get(image_id)
-    return send_file(BytesIO(image.data), mimetype='image/jpeg')
+@app.route('/image/<symbol>/<user_id>')
+def serve_image(symbol, user_id):
+    user_doc = db.db.Users.find_one({'id': user_id})
+    
+    if user_doc and 'equities' in user_doc and symbol in user_doc['equities']:
+        image_data = user_doc['equities'][symbol].get('ProfitMarginPlot')
+
+        if image_data:
+            image_data = BytesIO(image_data)
+            
+            return send_file(image_data, mimetype='image/png')
+    
+    flash('Image not found', 'danger')
+    return redirect(url_for('new'))
