@@ -95,7 +95,7 @@ def new():
             # urlSharePrice = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=ohi&apikey=WOHIPQEJ4Z6LPM6F'
             # share = list(requests.get(urlSharePrice).json().get('Time Series (Daily)').values)[0]
             match formMetric:
-                case 'N/M':
+                case 'NPM':
                     apiFunction = 'INCOME_STATEMENT'
                     url = f'https://www.alphavantage.co/query?function={apiFunction}&symbol={symbol}&apikey=WOHIPQEJ4Z6LPM6F'
                     data = requests.get(url).json().get('quarterlyReports')
@@ -111,20 +111,57 @@ def new():
                             netProfitMargin.append(int(netincomeList[i]) / int(revenue[i]))
                         plotedImage = plotchart(netProfitMargin, quartersList, 'bar',
                                 'Net Profit Margin', 
-                                'Quarters', 
+                                f'Last {int(form.singleSearchQtr.data)} Quarters', 
                                 'Profit Margin Analysis')
-                        imageData += [symbol, current_user.id, netProfitMargin]
+                        imageData += [symbol, formMetric, current_user.id, netProfitMargin]
                         activeUser = db.db.Users.find_one({'id': current_user.id})
-                        activeUser['equities'][symbol]['ProfitMarginPlot'] =  plotedImage
-                        activeUser['equities'][symbol]['Image_ID'] =  symbol + current_user.id
-                        activeUser['equities'][symbol]['ProfitMarginList'] = netProfitMargin
+                        if 'equities' not in activeUser:
+                            activeUser['equities'] = {}
+                        if symbol not in activeUser['equities']:
+                            activeUser['equities'][symbol] = {}
+                        if formMetric not in activeUser['equities'][symbol]:
+                            activeUser['equities'][symbol][formMetric] = {}
+                        activeUser['equities'][symbol][formMetric]['ProfitMarginPlot'] =  plotedImage
+                        activeUser['equities'][symbol][formMetric]['ProfitMarginList'] = netProfitMargin
                         db.db.Users.update_one({'id': current_user.id}, {'$set': {'equities': activeUser['equities']}})
-                        return render_template('displayplot.html', title='Analysis Plot', data=imageData)
+                        return render_template('displayplot.html', title='Analysis Report', data=imageData)
                     else:
                         flash(f"Data not found for {symbol}", 'danger')
                         return redirect(url_for('new'))
-                case 'P/E':
-                    api
+                case 'PTE':
+                    apiFunction = 'OVERVIEW'
+                    overviewUrl = f'https://www.alphavantage.co/query?function={apiFunction}&symbol={symbol}&apikey=WOHIPQEJ4Z6LPM6F'
+                    netincomeUrl = f'https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol={symbol}&apikey=WOHIPQEJ4Z6LPM6F'
+                    overviewData = requests.get(overviewUrl).json()
+                    incomeData = requests.get(netincomeUrl).json().get('quarterlyReports')
+                    outstandingShares = int(overviewData.get('SharesOutstanding'))
+                    if overviewData and incomeData:
+                        netincomeList = []
+                        quartersList = [f'Q{i+1}' for i in range(0, int(form.singleSearchQtr.data))]
+                        marketSharePrice = int(overviewData.get('MarketCapitalization')) / outstandingShares
+                        for i in range(0, int(form.singleSearchQtr.data)):
+                            netincomeList.append(incomeData[i].get('netIncome'))
+                        earningsPerShare = [int(i) / int(outstandingShares) for i in netincomeList]
+                        priceToEarnings = [marketSharePrice / i for i in earningsPerShare]
+                        plotedImage = plotchart(priceToEarnings, quartersList, 'bar',
+                                'Price to Earnings', 
+                                f'Last {int(form.singleSearchQtr.data)} Quarters', 
+                                'Price to Earnings Analysis')
+                        imageData += [symbol, formMetric, current_user.id, priceToEarnings]
+                        activeUser = db.db.Users.find_one({'id': current_user.id})
+                        if 'equities' not in activeUser:
+                            activeUser['equities'] = {}
+                        if symbol not in activeUser['equities']:
+                            activeUser['equities'][symbol] = {}
+                        if formMetric not in activeUser['equities'][symbol]:
+                            activeUser['equities'][symbol][formMetric] = {}
+                        activeUser['equities'][symbol][formMetric]['PriceToEarningsPlot'] =  plotedImage
+                        activeUser['equities'][symbol][formMetric]['PriceToEarningsList'] = priceToEarnings
+                        db.db.Users.update_one({'id': current_user.id}, {'$set': {'equities': activeUser['equities']}})
+                        return render_template('displayplot.html', title='Analysis Report', data=imageData)
+                    else:
+                        flash(f"Data not found for {symbol}", 'danger')
+                        return redirect(url_for('new'))
             
     else:
         flash(f"Please log in to add a new rent.", 'danger')
@@ -148,26 +185,15 @@ def dashboard():
     """dashboard page route."""
     return render_template('dashboard.html', title='Dashboard')
 
-@app.route('/show/<plot>')
-def display(plot):
-    """accomodation page route."""
-    
-    pictures = Image.query.filter_by(accomodation_id=accomodation_id).all()
-    return render_template('accomodation.html', title='Accomodation', rent=rent, pictures=pictures)
-
-@app.route('/accomodation/<accomodation_id>')
-def accomodation(accomodation_id):
-    """accomodation page route."""
-    rent = Accomodation.query.get_or_404(accomodation_id)
-    pictures = Image.query.filter_by(accomodation_id=accomodation_id).all()
-    return render_template('accomodation.html', title='Accomodation', rent=rent, pictures=pictures)
-
-@app.route('/image/<symbol>/<user_id>')
-def serve_image(symbol, user_id):
+@app.route('/image/<symbol>/<metric>/<user_id>')
+def serve_image(symbol, metric, user_id):
     user_doc = db.db.Users.find_one({'id': user_id})
     
     if user_doc and 'equities' in user_doc and symbol in user_doc['equities']:
-        image_data = user_doc['equities'][symbol].get('ProfitMarginPlot')
+        if metric == 'NPM':
+            image_data = user_doc['equities'][symbol][metric].get('ProfitMarginPlot')
+        elif metric == 'PTE':
+            image_data = user_doc['equities'][symbol][metric].get('PriceToEarningsPlot')
 
         if image_data:
             image_data = BytesIO(image_data)

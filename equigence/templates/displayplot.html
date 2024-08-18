@@ -11,6 +11,7 @@
             font-weight: 800;
         }
         .card {
+            width: 100%;
             margin-top: 1em;
             transition: 0.3s;
             border-radius: 10px;
@@ -25,27 +26,25 @@
         }
     </style>
 
-    <div class="container mt-5">
+    <div class="container mt-2">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="container">
                 <div class="card shadow-lg">
                     <div class="card-body">
                         <div class="title">
                             <div class="border-bottom mb-4">
-                                <h2 class="font-weight-bold text-uppercase">test in test</h2>
+                                <h2 class="font-weight-bold text-uppercase">Analysis Report</h2>
                             </div>
                             <p class="text-muted"> <b>Symbol:</b> {{data[0]}}</p>
-                            <p class="text-muted"> <b>Net Profit Margins:</b> {{data[2]}}</p>
-                        </div>
-                        <div class="row mt-3 mb-3">
-                            <p class="card-text mt-3">test</p>
+                            <p class="text-muted"> <b>Metric:</b> {{data[1]}}</p>
+                            <p class="text-muted"> <b>Data:</b> {{data[3]}}</p>
                         </div>
                         <hr>
                         <div class="row mt-3 mb-5">
                             <h5 class="font-weight-bold">Plot Image</h5>
                         </div>
                         <div >
-                            <img src="{{ url_for('serve_image', symbol=data[0], user_id=data[1]) }}" alt="Ananysis Image">
+                            <img src="{{ url_for('serve_image', symbol=data[0], metric=data[1], user_id=data[2]) }}" alt="Ananysis Image">
                         </div>
                     </div>
                 </div>

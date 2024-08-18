@@ -34,10 +34,8 @@ class New(FlaskForm):
                                                                          (5, '5'), (6, '6'),
                                                                          (7, '7'), (8, '8')],
                                     validators=[DataRequired()])
-    metric = SelectField('Analysis Metric', choices=[('N/M', 'Net Profit Margin (N/M)'),
-                                                       ('P/E', 'Price to Earnings (P/E)'),
-                                                       ('D/E', 'Debt to Equity (D/E)'),
-                                                       ('R/E', 'Return on Equity (R/E)')],
+    metric = SelectField('Analysis Metric', choices=[('NPM', 'Net Profit Margin (N/M)'),
+                                                       ('PTE', 'Price to Earnings (P/E)')],
                                                        validators=[DataRequired()])
     compare = BooleanField('Compare Equities?')
     compareStock = StringField('Equities to Compare (e.g AAPL, MSF, TSLA)')
