@@ -80,41 +80,50 @@
         .rounded-corner {
             border-radius: 15px; /* Adjust the value as needed */
         }
+        .firstname {
+            color: #FF5147;
+            font-weight: bold;
+        }
     </style>
     <div class="container">
         <div class="dashboard-card">
             <h1>Dashboard</h1>
-            <h3><b>{{ current_user.firstname }}</b>, welcome to your Dashboard!</h3>
+            <h3><span class="firstname"><b>{{ current_user.firstname }}</b></span>, welcome to your Dashboard!</h3>
+            <br>
             <div>
                 <h3> Your Account Details:</h3>
                 <p> <b>First Name:</b> {{ current_user.firstname }}</p>
                 <p> <b>Last Name:</b> {{ current_user.lastname }}</p>
                 <p> <b>Email:</b> {{ current_user.email }}</p>
-                <h3 id="equity-heading"> Your Equities History:</h3>
             </div>
+            <br>
+            <hr>
+                <div>
+                    <h3 id="equity-heading"> Your Equities History:</h3>
+                </div>
             <div class="equities-list mt-5">
+               
                 
-                <br>
-                {% for key, equity in data.items() %}
-                    <div class="equity-card">
-                        <div class="equity-details">
-                            <h3 id="equity">{{ key }}</h3>
-                            {% for sub_key, value in equity.items() %}
-                                {% if sub_key == 'NPM' and data[key][sub_key]['ComparisonPlot'] %}
-                                    <img class="rounded-corner" src="{{ url_for('serve_image', symbol=key, metric=sub_key, user_id=current_user.id, compare='1') }}" alt="Analysis Image">
-                                {% elif sub_key == 'NPM' %}
-                                    <img class="rounded-corner" src="{{ url_for('serve_image', symbol=key, metric=sub_key, user_id=current_user.id, compare='0') }}" alt="Analysis Image">
-                                {% elif sub_key == 'PTE' and data[key][sub_key]['ComparisonPlot'] %}
-                                    <img class="rounded-corner" src="{{ url_for('serve_image', symbol=key, metric=sub_key, user_id=current_user.id, compare='1') }}" alt="Analysis Image">
-
-                                {% elif sub_key == 'PTE' %}
-                                    <img class="rounded-corner" src="{{ url_for('serve_image', symbol=key, metric=sub_key, user_id=current_user.id, compare='0') }}" alt="Analysis Image">
-                                {% endif %}
-                                <p>{{ url_for('render_image', user_id=current_user.id, symbol=sub_key) }}</p>
-                            {% endfor %}
+                <div>
+                    {% for key, equity in data.items() %}
+                        <div class="equity-card">
+                            <div class="equity-details">
+                                <h3 id="equity">{{ key }}</h3>
+                                {% for sub_key, value in equity.items() %}
+                                    {% if sub_key == 'NPM' and data[key][sub_key]['ComparisonPlot'] %}
+                                        <div> <img class="rounded-corner" src="{{ url_for('serve_image', symbol=key, metric=sub_key, user_id=current_user.id, compare='1') }}" alt="Analysis Image"> </div>
+                                    {% elif sub_key == 'NPM' %}
+                                        <div> <img class="rounded-corner" src="{{ url_for('serve_image', symbol=key, metric=sub_key, user_id=current_user.id, compare='0') }}" alt="Analysis Image"> </div>
+                                    {% elif sub_key == 'PTE' and data[key][sub_key]['ComparisonPlot'] %}
+                                        <div> <img class="rounded-corner" src="{{ url_for('serve_image', symbol=key, metric=sub_key, user_id=current_user.id, compare='1') }}" alt="Analysis Image"> </div>
+                                    {% elif sub_key == 'PTE' %}
+                                       <div> <img class="rounded-corner" src="{{ url_for('serve_image', symbol=key, metric=sub_key, user_id=current_user.id, compare='0') }}" alt="Analysis Image"> </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>

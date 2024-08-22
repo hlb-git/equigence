@@ -280,20 +280,3 @@ def serve_image(symbol, metric, user_id, compare):
             if image_data:
                 image_data = BytesIO(image_data)
                 return send_file(image_data, mimetype='image/png')
-
-@app.route('/<user_id>/<symbol>')
-def render_image(user_id, symbol):
-    user_doc = db.db.Users.find_one({'id': user_id})
-    if user_doc and 'equities' in user_doc and symbol in user_doc['equities']:
-        npmImageData = user_doc['equities'][symbol]['NPM'].get('ProfitMarginPlot')
-        pteImageData = user_doc['equities'][symbol]['PTE'].get('PriceToEarningsPlot')
-        if npmImageData:
-            image_data = BytesIO(npmImageData)
-            return send_file(image_data, mimetype='image/png')
-        elif pteImageData:
-            image_data = BytesIO(pteImageData)
-            return send_file(image_data, mimetype='image/png')
-        else:
-            flash(f"Data not found for {symbol}", 'danger')
-            return redirect(url_for('new'))
-    return redirect(url_for('new'))
