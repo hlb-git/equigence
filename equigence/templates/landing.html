@@ -10,7 +10,7 @@
     <header class="header-section">
         <div class="header-container">
             <div>
-                <a class="logo" href="{{url_for('home')}}">WeeRent</h1>
+                <a class="logo" href="{{url_for('home')}}">Equigence</h1>
             </div>
             <div>
                 <button class="menu-toggle">&#9776;</button>
@@ -18,8 +18,20 @@
                     <ul>
                         <li><a class="links" href="{{url_for('home')}}">Home</a></li>
                         <li><a class="links" href="{{url_for('contact')}}">Contact</a></li>
-                        <li><a class="links" href="{{url_for('register')}}">Sign Up</a></li>
-                        <li><a class="links" href="{{url_for('new')}}">Add Rent</a></li>
+
+                        {% if current_user.is_authenticated %}
+                            <li><a class="links" href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                            
+                            <li><a class="links" id="logout" href="{{ url_for('logout') }}">Logout</a></li>
+                        {% else %}
+                            <li>
+                                <a class="links" href="{{ url_for('register') }}">Sign Up</a>
+                            </li>
+                            <li>
+                                <a class="links" href="{{ url_for('login') }}">Login</a>
+                            </li>
+                        {% endif %}
+                        <li><a class="links" href="{{url_for('new')}}">New Search</a></li>
                     </ul>
                 </nav>
             </div>
@@ -29,14 +41,14 @@
     <div class="hero-section">
         <div class="hero-content">
             <div class="hero-texts">
-                <h1 class="header">Find Your Ideal Home Away from Home</h1>
-                <h2 class="sub-header">Your Premier Rental Directory for NYSC Members</h2>
+                <h1 class="header">Your Gateway to Intelligent Equity Analysis</h1>
+                <h2 class="sub-header">Comprehensive Insights for Smarter Investments</h2>
                 <p class="hero-description">
-                    Experience Hassle-Free Accommodation Searches Throughout
-                    Your Service Year. Find Your Perfect Rental with WeeRent Today!
+                    Leverage advanced analytics to make informed investment choices.
+                    Simplify Your Investment Journey!
                 </p>
             </br>
-                <a href="{{url_for('listings')}}" class="head-btn">Browse Listings</a>
+                <a href="{{url_for('new')}}" class="head-btn">Explore Now</a>
             </div>
         </div>
         <div class="illustration">
@@ -45,28 +57,27 @@
         </div>
     </div>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-        <path fill="#f1f1f1" fill-opacity="1" d="M0,64L48,80C96,96,192,128,288,144C384,160,480,160,576,138.7C672,117,768,75,864,80C960,85,1056,139,1152,154.7C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        <path fill="#eff3da" fill-opacity="1" d="M0,64L48,80C96,96,192,128,288,144C384,160,480,160,576,138.7C672,117,768,75,864,80C960,85,1056,139,1152,154.7C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
     </svg>
     <section id="why-choose">
         <div class="container">
-            <h2>Why Choose WeeRent?</h2>
+            <h2>Why Choose Equigence?</h2>
             <div class="grid">
                 <div class="feature">
-                    <h3>Tailored Listings</h3>
-                    <p>Browse through a curated selection of accommodation options specifically chosen to meet the needs of corps members.</p>
+                    <h3>Advanced Analytics</h3>
+                    <p>Equigence provides comprehensive equity analysis to empower your investment decisions.</p>
                 </div>
                 <div class="feature">
-                    <h3>Verified Properties</h3>
-                    <p>Rest assured knowing that all listings are thoroughly vetted for safety, comfort, and affordability.</p>
+                    <h3>Real-Time Insights</h3>
+                    <p>Gain confidence with data-driven insights and real-time market analysis.</p>
                 </div>
                 <div class="feature">
-                    <h3>Easy Search</h3>
-                    <p>Find your ideal accommodation quickly with our intuitive search filters,
-                        including State, City, and House type.</p>
+                    <h3>Personalized Reports</h3>
+                    <p>Receive customized investment reports tailored to your portfolio and goals.</p>
                 </div>
                 <div class="feature">
-                    <h3>Community Reviews</h3>
-                    <p>Hear from fellow corps members about their experiences with different properties through authentic reviews and ratings.</p>
+                    <h3>Data-Driven Strategies</h3>
+                    <p>Utilize cutting-edge analytics to uncover trends and make informed investment choices.</p>
                 </div>
             </div>
         </div>

@@ -39,10 +39,8 @@ class New(FlaskForm):
                                                        validators=[DataRequired()])
     compare = BooleanField('Compare Equities?')
     compareStock = StringField('Equities to Compare (e.g AAPL, MSF, TSLA)')
-    compareMetric = SelectField('Comparison Metric', choices=[('N/M', 'Net Profit Margin (N/M)'),
-                                                       ('P/E', 'Price to Earnings (P/E)'),
-                                                       ('D/E', 'Debt to Equity (D/E)'),
-                                                       ('R/E', 'Return on Equity (R/E)')],
+    compareMetric = SelectField('Comparison Metric', choices=[('NPM', 'Net Profit Margin (N/M)'),
+                                                       ('PTE', 'Price to Earnings (P/E)')],
                                 validators=[DataRequired()])
     compareSearchQtr = SelectField('Number of Quarters (Max 5)', choices=[(1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5')],
                                     validators=[DataRequired()])

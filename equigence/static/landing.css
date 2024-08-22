@@ -65,7 +65,7 @@ body {
 }
 
 .logo {
-    color: #74c343;
+    color: #fba82e;
     margin: 0;
     flex: 1;
     font-weight: 800;
@@ -91,7 +91,7 @@ body {
 
 .nav-links a {
     font-family: 'SF Pro Display';
-    color: #9ad569;
+    color: #fba82e;
     font-weight: 700;
     text-decoration: none;
 }
@@ -160,7 +160,7 @@ body {
     font-family: 'SF Pro Display';
     padding: 0.5rem 1rem;
     font-size: 1rem;
-    background-color: #FD6C63;
+    background-color: #ff5147;
     color: #fff;
     margin-top: 90px;
     font-weight: 800;
@@ -178,7 +178,7 @@ svg {
     display: block;
 }
 #why-choose {
-    background-color: #f1f1f1;
+    background-color: #eff3da;
     display: flex;
     align-items: center;
     min-height: 70vh;

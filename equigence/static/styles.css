@@ -78,7 +78,7 @@ footer {
     bottom: 0;
     width: 100%;
     position: fixed;
-    color: #74c343;
+    color: #FBA82E;
     font-weight: 700;
 }
 
@@ -92,7 +92,7 @@ footer {
 }
 
 .logotext {
-    color: #74c343;
+    color: #FBA82E;
     font-weight: 800;
     text-decoration: none;
     font-size: 25px;
@@ -111,7 +111,7 @@ footer {
     color: #003049;
     padding-top: 2px;
     padding-bottom: 2px ;
-    background-color: #F77F00;
+    background-color: #FF5147;
     margin-top: 5px;
 }
 #logout:hover {
@@ -154,7 +154,7 @@ h1 {
 }
 
 .nav-link, .navbar-brand {
-    color: #9AD569;
+    color: #fba82e;
 }
 
 .navbar-light .navbar-toggler-icon {
