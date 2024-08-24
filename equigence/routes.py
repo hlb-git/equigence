@@ -14,7 +14,7 @@ from io import BytesIO
 @app.route('/home')
 def home():
     """Home page route."""
-    return render_template('landing.html')
+    return render_template('landing.html', title='Equigence')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
