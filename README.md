@@ -3,9 +3,9 @@
 ![Screenshot from 2024-08-24 21-59-23](https://github.com/user-attachments/assets/a32eec77-7707-494b-ba24-9f7405ed1ca9)
 
 
-Portfolio Project That Aims to Solve and Automate the Fundamental Data Analyses of Equities for Long Term Investors.
+A portfolio project that leverages automation to simplify and streamline the analysis of equities, helping long-term investors make data-driven decisions with confidence.
 
-### Getting Started
+## Getting Started
 
 
 
