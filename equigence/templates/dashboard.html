@@ -19,7 +19,8 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
  }
         .dashboard-card h1 {
-            font-weight: bold;
+            font-size: 3rem;
+            font-weight: 800;
             color: #333;
             margin-bottom: 0.5em;
         }
@@ -64,7 +65,7 @@
         .equity-details:hover {
             transform: scale(1.05);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-            background: #FF5147;
+            background: #ff7f0e;
         }
         #equity {
             font-size: 20px;
@@ -87,7 +88,7 @@
     </style>
     <div class="container">
         <div class="dashboard-card">
-            <h1>Dashboard</h1>
+            <h1>My Dashboard</h1>
             <h3><span class="firstname"><b>{{ current_user.firstname }}</b></span>, welcome to your Dashboard!</h3>
             <br>
             <div>
@@ -99,7 +100,7 @@
             <br>
             <hr>
                 <div>
-                    <h3 id="equity-heading"> Your Equities History:</h3>
+                    <h3 id="equity-heading"> Your Equities Analysis History:</h3>
                 </div>
             <div class="equities-list mt-5">
                

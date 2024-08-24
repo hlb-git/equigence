@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request
 from equigence import app, db, bcrypt
-from equigence.forms import Register, Login, New, Filter
-from equigence.models import User, Equity, Image
+from equigence.forms import Register, Login, New
+from equigence.models import User
 from flask_login import login_user, logout_user, current_user, login_required
 from flask import send_file
 from equigence.plotting import plotchart, plotComparisonChart
