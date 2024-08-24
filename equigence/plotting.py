@@ -1,5 +1,5 @@
 import matplotlib
-matplotlib.use('Agg')  # Set matplotlib to use a non-GUI backend
+matplotlib.use('Agg')  # Sets matplotlib to use a non-GUI backend
 
 import pandas as pd
 import matplotlib.pyplot as plt

@@ -16,30 +16,6 @@ def home():
     """Home page route."""
     return render_template('landing.html')
 
-# @app.route('/listings', methods=['GET', 'POST'])
-# def listings():
-#     """listings page route."""
-#     form = Filter()
-#     page = request.args.get('page', 1, type=int)
-#     query = db.db.Users.find('id': current_user.id)
-#     if form.validate_on_submit():
-
-#         if form.state.data != '':
-#             query = query.filter_by(state=form.state.data)
-#         if form.city.data != '':
-#             query = query.filter_by(city=form.city.data)
-#         if form.type.data != '':
-#             query = query.filter_by(house_type=form.type.data)
-#         rents = query.order_by(Accomodation.created_at.desc()).paginate(page=page, per_page=6)
-#         return render_template('listing.html', rents=rents, title='Listings', form=form)
-#     equities = db.db.Users.find_one({'id': current_user.id}).get('equities')
-#     return render_template('listing.html', 
-#                            equities=equities, 
-#                            userId=current_user.id, 
-#                            title='Listings', 
-#                            form=form)
-
-
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     """Register page route."""
@@ -76,7 +52,6 @@ def login():
                         password=existing_user['password'],
                         id=existing_user['id'],)
             login_user(user, form.remember.data)
-            # print(current_user.__dict__) # This is to check the current user object
             next_page = request.args.get('next')
             flash(f"Log in successful!", 'success')
             return redirect(next_page) if next_page else redirect(url_for('dashboard'))
@@ -102,8 +77,6 @@ def new():
             symbol = form.symbol.data.upper()
             formMetric = form.metric.data
             apiFunction = None
-            # urlSharePrice = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=ohi&apikey=WOHIPQEJ4Z6LPM6F'
-            # share = list(requests.get(urlSharePrice).json().get('Time Series (Daily)').values)[0]
             match formMetric:
                 case 'NPM':
                     apiFunction = 'INCOME_STATEMENT'
@@ -244,11 +217,6 @@ def new():
         flash(f"Please log in to add a new rent.", 'danger')
         return redirect(url_for('login'))
     return render_template('new.html', title='New Search', form=form)
-
-# @app.route('/displayplot')
-# def displayplot():
-#     """Display plot route."""
-#     return render_template('displayplot.html', title='Analysis Report')
 
 @app.route('/contact')
 def contact():

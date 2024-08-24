@@ -41,27 +41,3 @@ class User(Superclass, UserMixin):
     Email: {self.email}
     Date Registered: {self.createdAt}
     """
-
-
-class Equity(Superclass):
-    """The Accomodation class."""
-    symbol = None
-    netIncome = None
-    totalRevenue = None
-    sharePrice = None
-    earningsPS = None
-    totalDebt = None
-    # image = None
-
-    def __repr__(self):
-        return f"""
-    Class: {self.__class__.__name__}
-    Id: {self.id}
-    Full Address: {self.address}, {self.LGA}, {self.state}.
-    Type: {self.house_type}
-    Landlor Id: {self.landlord_id}
-    """
-
-class Image(Superclass):
-    """The Images class."""
-    data = None
