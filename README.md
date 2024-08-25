@@ -34,7 +34,9 @@ Users can register and log in to access personalized features.
 
 #### Financial Data Retrieval: 
 Automatically fetches and processes financial data for various stocks.
-Data Visualization: Provides visual comparisons of key financial metrics over specified periods.
+
+#### Data Visualization: 
+Provides visual comparisons of key financial metrics over specified periods.
 
 #### User Dashboard: 
 Personalized dashboard for users to manage their stock analyses and comparisons.
@@ -60,4 +62,3 @@ Accessible at ```/register```, allows new users to register. Redirects authentic
 ## Contact
 
 For any inquiries or issues, please contact mzeelovegeneral@gmail.com
-
