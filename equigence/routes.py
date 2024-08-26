@@ -3,10 +3,6 @@ from equigence import app, db, bcrypt
 from equigence.forms import Register, Login, New
 from equigence.models import User
 from flask_login import login_user, logout_user, current_user, login_required
-from flask import send_file
-from equigence.plotting import plotchart, plotComparisonChart
-import requests
-from io import BytesIO
 
 
 
@@ -70,6 +66,9 @@ def dashboard():
 @login_required
 def new():
     """new search route"""
+    import requests
+    
+    from equigence.plotting import plotchart, plotComparisonChart
     form = New()
     if current_user.is_authenticated:
         if form.validate_on_submit() and not form.compare.data:
@@ -231,6 +230,9 @@ def logout():
 
 @app.route('/image/<symbol>/<metric>/<user_id>/<compare>')
 def serve_image(symbol, metric, user_id, compare):
+    from io import BytesIO
+    from flask import send_file
+    
     user_doc = db.db.Users.find_one({'id': user_id})
     if compare == '0':
         if user_doc and 'equities' in user_doc and symbol in user_doc['equities']:
